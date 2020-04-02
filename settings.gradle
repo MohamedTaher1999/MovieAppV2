@@ -1,0 +1,2 @@
+rootProject.name='MovieAppPhase2'
+include ':app'
