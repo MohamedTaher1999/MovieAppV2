@@ -1,4 +1,4 @@
-package com.example.movieappphase2.caches;
+package com.example.movieappphase2.data.network.caches;
 
 import android.util.Log;
 

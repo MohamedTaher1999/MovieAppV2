@@ -2,10 +2,12 @@ package com.example.movieappphase2.ui.movie;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieappphase2.ItemClickListener;
 import com.example.movieappphase2.data.model.Moviedata;
 import com.example.movieappphase2.databinding.FilmcardBinding;
 
@@ -14,10 +16,16 @@ import java.util.ArrayList;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ItemViewHolder> {
 
     private ArrayList<Moviedata> movies;
+    ItemAdapterListener itemAdapterListener;
+
+    public void setItemAdapterListener(ItemAdapterListener itemAdapterListener) {
+        this.itemAdapterListener = itemAdapterListener;
+    }
 
     public MovieAdapter() {
         movies=new ArrayList<>();
     }
+
     public void clearItems(){
 
         movies.clear();
@@ -48,7 +56,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ItemViewHold
         return movies != null && movies.size() > 0 ? movies.size() : 1;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder   {
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements MovieItemViewModel.ItemViewModelListener  {
 
         FilmcardBinding itemBinding;
 
@@ -60,13 +68,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ItemViewHold
         }
         public void onBindItem(Moviedata item) {
             // set Data to variable to set each specific Item
-            itemBinding.setMoveitem(new MovieItemViewModel(item));
+            itemBinding.setMoveitem(new MovieItemViewModel(item,this,itemBinding.filmposter));
 
             itemBinding.executePendingBindings();
         }
 
 
+        @Override
+        public void onItemClick(Moviedata item, ImageView poster) {
+            if(item!=null)
+                itemAdapterListener.onItemClick(item,poster);
+        }
     }
+    public interface ItemAdapterListener extends ItemClickListener {}
 
 
 

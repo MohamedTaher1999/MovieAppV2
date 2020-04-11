@@ -2,8 +2,7 @@ package com.example.movieappphase2.data.network;
 
 
 
-import com.example.movieappphase2.caches.RetrofitCacheing;
-import com.example.movieappphase2.data.network.WebServices;
+import com.example.movieappphase2.data.network.caches.RetrofitCacheing;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
