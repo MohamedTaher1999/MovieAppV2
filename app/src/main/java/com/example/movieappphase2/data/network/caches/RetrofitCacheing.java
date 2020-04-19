@@ -26,7 +26,7 @@ public class RetrofitCacheing {
 
     public   OkHttpClient okHttpClient(){
         return new OkHttpClient.Builder()
-                .cache(cache())
+                    .cache(cache())
                 .addInterceptor(httpLoggingInterceptor()) // used if network off OR on
                 .addNetworkInterceptor(networkInterceptor()) // only used when network is on
                 .addInterceptor(offlineInterceptor())
@@ -34,8 +34,8 @@ public class RetrofitCacheing {
     }
 
     private static Cache cache(){
-        return new Cache(new File(MyApplication.getInstance().getCacheDir(),"someIdentifier"), cacheSize);
-    }
+       File httpCacheDirectory = new File(MyApplication.getInstance().getCacheDir(), "offline");
+       return new Cache(httpCacheDirectory, cacheSize);    }
 
     private static Interceptor networkInterceptor() {
         return new Interceptor() {

@@ -68,11 +68,11 @@ public class DetailsFragment extends Fragment {
         binding.setLifecycleOwner(this);
     }
     public void setActionBar(){
-
         ((AppCompatActivity)getActivity()).setSupportActionBar(binding.toolbar);
-
         if(((AppCompatActivity)getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
+
+
 }

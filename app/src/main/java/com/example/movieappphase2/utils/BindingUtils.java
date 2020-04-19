@@ -1,8 +1,11 @@
 package com.example.movieappphase2.utils;
 
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.movieappphase2.R;
 import com.example.movieappphase2.data.model.Genres;
 import com.example.movieappphase2.data.model.Moviedata;
+import com.example.movieappphase2.ui.favouriteMovie.FavouriteMovieAdapter;
 import com.example.movieappphase2.ui.movie.MovieAdapter;
 
 import java.util.ArrayList;
@@ -21,6 +25,16 @@ public class BindingUtils {
     @BindingAdapter({"adapter"})
     public static void setRecyclerViewData(RecyclerView recyclerView, ArrayList<Moviedata> items) {
         MovieAdapter movieAdapter= (MovieAdapter)recyclerView.getAdapter();
+        if(movieAdapter!=null&&items!=null){
+
+            movieAdapter.addItems(items);
+
+        }
+
+    }
+    @BindingAdapter({"favouriteadapter"})
+    public static void favouritSetRecyclerViewData(RecyclerView recyclerView, ArrayList<Moviedata> items) {
+        FavouriteMovieAdapter movieAdapter= (FavouriteMovieAdapter)recyclerView.getAdapter();
         if(movieAdapter!=null&&items!=null){
 
             movieAdapter.addItems(items);
@@ -76,6 +90,18 @@ public class BindingUtils {
 
 
     }
+
+    @BindingAdapter("setProgressBar")
+    public static void setProgressBar(ProgressBar progressBar , boolean check){
+        if(check){progressBar.setVisibility(View.GONE);
+        }
+
+
+
+
+    }
+
+
 
 
 

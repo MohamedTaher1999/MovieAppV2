@@ -1,4 +1,4 @@
-package com.example.movieappphase2;
+package com.example.movieappphase2.utils;
 
 import android.widget.ImageView;
 

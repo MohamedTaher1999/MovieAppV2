@@ -16,20 +16,21 @@ public class ApiService {
     private static ApiService instance;
 
 
-  /*  public ApiService() {
+    public ApiService() {
         retrofitCacheing=new RetrofitCacheing();
-    }*/
- //   public static ApiService GetInstance(){
-     //   if(instance == null){
-       //     instance = new ApiService();
-      //  }
-      //  return instance;
-   // }
+    }
+
+    public static ApiService GetInstance(){
+        if(instance == null){
+            instance = new ApiService();
+        }
+        return instance;
+    }
 
     private static   Retrofit retrofit(){
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-            //    .client(retrofitCacheing.okHttpClient())
+                .client(retrofitCacheing.okHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

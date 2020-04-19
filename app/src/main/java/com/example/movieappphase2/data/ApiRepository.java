@@ -31,8 +31,7 @@ public class ApiRepository {
     }
 
     public void getMovies(String category, int page) {
-        System.out.println(category);
-        ApiService.getAPI()
+        ApiService.GetInstance().getAPI()
                 .getMovies(category,ApiService.key,ApiService.LANGUAGE,page)
                 .enqueue(new Callback<ResultsMovies>() {
                     @Override
@@ -47,7 +46,7 @@ public class ApiRepository {
                             throw new InterruptedException("Something went wrong!");
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                            System.out.println("nnoooooooooo");
+
 
                         }
                     }

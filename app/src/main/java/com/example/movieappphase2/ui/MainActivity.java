@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.movieappphase2.R;
+import com.example.movieappphase2.ui.favouriteMovie.FavouriteMovieFragment;
 import com.example.movieappphase2.ui.movie.MoviesFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.favourite_item:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MoviesFragment("Favourite")).commit();
+                        new FavouriteMovieFragment()).commit();
                 break;
 
 

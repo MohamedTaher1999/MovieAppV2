@@ -1,11 +1,8 @@
-package com.example.movieappphase2.ui.movie;
-
+package com.example.movieappphase2.ui.favouriteMovie;
 
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -13,8 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,65 +21,50 @@ import android.widget.Toast;
 
 import com.example.movieappphase2.R;
 import com.example.movieappphase2.data.model.Moviedata;
-import com.example.movieappphase2.databinding.FragmentMoviesBinding;
+import com.example.movieappphase2.databinding.FragmentFavouriteMovieBinding;
 import com.example.movieappphase2.ui.movieDetails.DetailsFragment;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoviesFragment extends Fragment implements MovieAdapter.ItemAdapterListener {
+public class FavouriteMovieFragment extends Fragment implements FavouriteMovieAdapter.ItemAdapterListener {
 
-    private MovieViewModel movieViewModel;
-    private MovieAdapter movieAdapter;
+    private FavouriteMovieViewModel favouriteMovieViewModel;
+    private FavouriteMovieAdapter favouriteMovieAdapter;
     private LayoutAnimationController controller=null;
-    private FragmentMoviesBinding binding;
-    private String movieType;
-    private int page =1;
+    private FragmentFavouriteMovieBinding binding;
 
-    public MoviesFragment(String moviesType) {
-        movieType=moviesType;
+    public FavouriteMovieFragment() {
+        // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_movies,container,false);
-
-
-
+        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_favourite_movie,container,false);
         setViewModel();
         initializeRecycleView();
         getMovies();
 
-        binding.moviesRecycleView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0)
-                {
-                    if(!movieType.equals("Favourite"))
-                    if ((binding.moviesRecycleView.getAdapter().getItemCount()- 4) == ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition())
-                        getMovies();}}});
+        return binding.getRoot();
 
-
-
-        return  binding.getRoot();
     }
     private void setViewModel(){
-        movieViewModel= ViewModelProviders.of(this).get(MovieViewModel.class);
-        binding.setViewModel(movieViewModel);
+        favouriteMovieViewModel= ViewModelProviders.of(this).get(FavouriteMovieViewModel.class);
+        binding.setFavouriteviewModel(favouriteMovieViewModel);
         binding.setLifecycleOwner(this);
 
     }
-
     private void initializeRecycleView(){
 
         binding.moviesRecycleView.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(),2));
         binding.moviesRecycleView.setHasFixedSize(true);
-        movieAdapter=new MovieAdapter();
-        movieAdapter.setItemAdapterListener(this);
+        favouriteMovieAdapter=new FavouriteMovieAdapter();
+        favouriteMovieAdapter.setItemAdapterListener(this);
         animateRecycleView();
-        binding.moviesRecycleView.setAdapter(movieAdapter);
+        binding.moviesRecycleView.setAdapter(favouriteMovieAdapter);
     }
     private void animateRecycleView(){
         Context context=binding.moviesRecycleView.getContext();
@@ -95,15 +75,12 @@ public class MoviesFragment extends Fragment implements MovieAdapter.ItemAdapter
     private void getMovies(){
 
 
-        movieViewModel.getMovies(movieType,page);
-        page++;
+
+            favouriteMovieViewModel.getFavouriteMovies(getContext());
 
     }
-
-
     @Override
     public void onItemClick(Moviedata item, ImageView poster) {
-        page=1;
         Fragment fragment = new DetailsFragment(item);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -111,6 +88,11 @@ public class MoviesFragment extends Fragment implements MovieAdapter.ItemAdapter
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        Toast.makeText(getContext(),"noeee",Toast.LENGTH_LONG).show();
 
     }
 }

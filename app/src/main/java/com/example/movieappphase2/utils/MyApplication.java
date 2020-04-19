@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+
 public class MyApplication extends Application {
 
     private static MyApplication instance;
@@ -12,7 +13,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         if(instance == null){
             instance = this;
         }
